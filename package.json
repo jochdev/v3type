@@ -1,13 +1,14 @@
 {
   "name": "book-project",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "cross-env VUE_APP_API_CLIENT=mock vue-cli-service serve  --mode development",
+    "build": "cross-env VUE_APP_API_CLIENT=live vue-cli-service build --mode production",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

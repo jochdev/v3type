@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { ItemInterface } from '@/models/items/Item.interface'
 import { ItemsStateInterface } from '@/models/store/ItemsState.interface'
+import apiClient from '@/api-client'
 // Nuestro estado inicial:
 const state: ItemsStateInterface = {
   loading: false,
@@ -37,35 +38,40 @@ export default createStore({
 
       // Algunos datos falsos
 
-      const mockItems: ItemInterface[] = [
-        {
-          id: 1,
-          name: "Item 1",
-          selected: false,
-        },
-        {
-          id: 2,
-          name: "Item 2",
-          selected: false,
-        },
-        {
-          id: 3,
-          name: "Item 3",
-          selected: false,
-        },
-        {
-          id: 4,
-          name: "Item 4",
-          selected: false,
-        },
-      ]
+      // const mockItems: ItemInterface[] = [
+      //   {
+      //     id: 1,
+      //     name: "Item 1",
+      //     selected: false,
+      //   },
+      //   {
+      //     id: 2,
+      //     name: "Item 2",
+      //     selected: false,
+      //   },
+      //   {
+      //     id: 3,
+      //     name: "Item 3",
+      //     selected: false,
+      //   },
+      //   {
+      //     id: 4,
+      //     name: "Item 4",
+      //     selected: false,
+      //   },
+      // ]
+
+
       // Fingiremos que hemos llamado a un recurso de un API
       // y tarda 1 segundo en devolvernos los datos
       // usando un setTimeout de JavaScript con 1000 milisegundos como opción
 
       setTimeout(() => {
-        commit('loadedItems', mockItems)
-      }, 3000)
+        // commit('loadedItems', mockItems)
+        apiClient.items.fetchItems().then((data: ItemInterface[]) => {
+          commit('loadedItems', data)
+        })
+      }, 2000)
 
     },
     selectItem({ commit }, params: {
