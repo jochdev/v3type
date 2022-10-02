@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import ItemsListComponentVue from "@/components/items/ItemsList.component.vue";
 import { ItemInterface } from "@/models/items/Item.interface";
 
@@ -16,7 +16,7 @@ export default defineComponent({
   },
 
   setup() {
-    const items: ItemInterface[] = [
+    const items: ItemInterface[] = reactive([
       {
         id: 1,
         name: "Item 1",
@@ -37,7 +37,7 @@ export default defineComponent({
         name: "Item 4",
         selected: false,
       },
-    ];
+    ]);
 
     return {
       items,
