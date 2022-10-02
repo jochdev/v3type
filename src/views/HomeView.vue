@@ -23,7 +23,7 @@ export default defineComponent({
         selected: false,
       },
       {
-        id: 12,
+        id: 2,
         name: "Item 2",
         selected: false,
       },
