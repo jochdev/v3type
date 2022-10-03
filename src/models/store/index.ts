@@ -10,3 +10,4 @@ export * from './root/RootStore.model'
 // GEN-EXPORTS
 // a medida que añadas más módulos de estado, añade las exportaciones correspondientes aquí
 export * from './items/ItemsState.interface'
+export * from './locales/LocalesState.interface' 

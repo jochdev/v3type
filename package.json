@@ -1,6 +1,6 @@
 {
   "name": "book-project",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "scripts": {
     "serve": "cross-env VUE_APP_API_CLIENT=mock vue-cli-service serve  --mode development",
