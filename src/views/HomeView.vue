@@ -12,7 +12,10 @@
 import { computed, defineComponent, onMounted } from "vue";
 import ItemsListComponent from "@/components/items/ItemsList.component.vue";
 import { ItemInterface } from "@/models/items/Item.interface";
-import store from "@/store";
+
+import { useItemsStore } from "@/store/items";
+
+import { MutationType, StoreModuleNames } from "@/models/store";
 
 export default defineComponent({
   name: "Home",
@@ -21,46 +24,27 @@ export default defineComponent({
   },
 
   setup() {
+    const itemsStore = useItemsStore();
+
+    const items = computed(() => {
+      return itemsStore.state.items;
+    });
+
+    const loading = computed(() => {
+      return itemsStore.state.loading;
+    });
+
+    onMounted(() => {
+      itemsStore.action(MutationType.items.loadItems);
+    });
+
     const onSelectItem = (item: ItemInterface) => {
-      store.dispatch("selectItem", {
+      itemsStore.action(MutationType.items.selectItem, {
         id: item.id,
         selected: !item.selected,
       });
     };
-    // const items: ItemInterface[] = reactive([
-    //   {
-    //     id: 1,
-    //     name: "Item 1",
-    //     selected: false,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "Item 2",
-    //     selected: false,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "Item 3",
-    //     selected: false,
-    //   },
-    //   {
-    //     id: 4,
-    //     name: "Item 4",
-    //     selected: false,
-    //   },
-    // ]);
 
-    const items = computed(() => {
-      return store.state.items;
-    });
-
-    const loading = computed(() => {
-      return store.state.loading;
-    });
-
-    onMounted(() => {
-      store.dispatch("loadItems");
-    });
     return {
       items,
       loading,
