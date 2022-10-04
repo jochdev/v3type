@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Items - loading: {{ loading }}:</h3>
+    <h3>{{ i18n.t("items.list.header") }} - loading: {{ loading }}:</h3>
     <Loader v-show="loading" />
     <ul v-show="!loading">
       <!-- <li v-for="item in items" :key="item.id" @click="onItemSelect(item)">
@@ -22,6 +22,7 @@ import { defineComponent, PropType } from "vue";
 import { ItemInterface } from "@/models/items/Item.interface";
 import ItemComponent from "./children/Item.component.vue"; // <-- añadir esto
 import Loader from "@/components/shared/Loader.component.vue";
+import { useI18n } from "vue-i18n";
 export default defineComponent({
   components: {
     ItemComponent,
@@ -37,10 +38,12 @@ export default defineComponent({
   },
   emits: ["selectItem"],
   setup(props, { emit }) {
+    const i18n = useI18n();
     const onItemSelect = (item: ItemInterface) => {
       emit("selectItem", item);
     };
     return {
+      i18n,
       onItemSelect,
     };
   },
